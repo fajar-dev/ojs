@@ -9,6 +9,7 @@
 @section('content')
 
 <form class="form w-100" novalidate="novalidate" id="kt_password_reset_form" action="{{ route('password.email') }}" method="POST">
+    @csrf
     <!--begin::Heading-->
     <div class="text-center mb-10">
         <!--begin::Title-->
@@ -18,23 +19,7 @@
         <div class="text-gray-500 fw-semibold fs-6">Enter your email to reset your password.</div>
         <!--end::Link-->
     </div>
-    @if (session('status'))
-                <div class="alert alert-success alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>×</span>
-                        </button>
-                        Link telah dikirim ke email Anda.
-                    </div>
-                </div>
-            @endif
-            @error('email')
-                    <div class="text-center p-t-12 text-danger">
-                        <span class="txt2">
-                            <p>Email tidak terdaftar!</p>
-                        </span>						
-                    </div>
-                @enderror
+           
     <!--begin::Heading-->
     <!--begin::Input group=-->
     <div class="fv-row mb-8">
@@ -62,4 +47,16 @@
 
 @section('script')
     <script src="{{ asset('theme/js/custom/authentication/reset-password/reset-password.js') }}"></script>
+    @if (session('status'))
+        <script>
+            success();
+        </script>
+    @endif
+    @error('email')
+        <script>
+            error();
+        </script>
+    @enderror
 @endsection
+
+

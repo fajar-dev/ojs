@@ -32,6 +32,18 @@ var KTSigninGeneral = (function () {
         },
     };
 })();
+
+function error() {
+    Swal.fire({
+        text: "Sorry, username or password you entered is incorrect",
+        icon: "error",
+        buttonsStyling: !1,
+        footer: '<a href="/password/reset">Forgot Password ?</a>',
+        confirmButtonText: "Try Again!",
+        customClass: { confirmButton: "btn btn-primary" },
+    });
+}
+
 KTUtil.onDOMContentLoaded(function () {
     KTSigninGeneral.init();
 });

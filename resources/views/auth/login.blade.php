@@ -10,13 +10,6 @@
         <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
         <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
     </div>
-    @if($errors->any())
-                    <div class="text-center p-t-12 text-danger">
-                        <span class="txt2">
-                            <p>Nama pengguna atau kata sandi yang Anda masukkan salah!</p>
-                        </span>
-                    </div>
-                @endif
     <div class="fv-row mb-8">
         <input type="text" placeholder="Username" name="username" autocomplete="off" class="form-control bg-transparent" />
     </div>
@@ -46,4 +39,9 @@
 
 @section('script')
     <script src="{{ asset('theme/js/custom/authentication/sign-in/general.js') }}"></script>
+    @if($errors->any())
+    <script>
+        error()
+    </script>
+    @endif
 @endsection
