@@ -6,7 +6,9 @@ var KTAuthResetPassword = (function () {
             (t = document.querySelector("#kt_password_reset_form")),
                 (e = document.querySelector("#kt_password_reset_submit")),
                 (i = FormValidation.formValidation(t, {
-                    fields: { email: { validators: { regexp: { regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "The value is not a valid email address" }, notEmpty: { message: "Email address is required" } } } },
+                    fields: {
+                         email: { validators: { regexp: { regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "The value is not a valid email address" }, notEmpty: { message: "Email address is required" } } } 
+                        },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
                 e.addEventListener("click", function (r) {
