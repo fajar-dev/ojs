@@ -7,13 +7,31 @@
 @endsection
 
 @section('content')
-<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="../../demo1/dist/authentication/layouts/corporate/sign-in.html" action="#">
+<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form"  method="POST" action="{{ route('register') }}">
+    @csrf
     <div class="text-center mb-11">
         <h1 class="text-dark fw-bolder mb-3">Sign Up</h1>
         <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
     </div>
     <div class="fv-row mb-8">
-        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+        <input type="text" placeholder="Full name" name="name" value="{{ old('name') }}" autocomplete="off" class="form-control bg-transparent" />
+    </div>
+    <div class="fv-row mb-8">
+        <input type="text" placeholder="Username" name="username" value="{{ old('username') }}" autocomplete="off" onchange="username_validasi()" class="form-control bg-transparent" />
+        <div class="text-muted">max 20 characters and numbers with symbols ( - , _ ) are allowed</div>
+        @error('username')
+            <div class="fv-plugins-message-container invalid-feedback validate" id="validate-uname">
+                <div data-field="email" data-validator="regexp">Username has been taken</div>
+            </div>
+        @enderror
+    </div>
+    <div class="fv-row mb-8">
+        <input type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="off" onchange="email_validasi()" class="form-control bg-transparent" />
+        @error('username')
+        <div class="fv-plugins-message-container invalid-feedback validate" id="validate-email">
+            <div data-field="email" data-validator="regexp">Email has been taken</div>
+        </div>
+    @enderror
     </div>
     <div class="fv-row mb-8" data-kt-password-meter="true">
         <div class="mb-1">
@@ -51,70 +69,21 @@
         </button>
     </div>
     <div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account?
-    <a href="../../demo1/dist/authentication/layouts/corporate/sign-in.html" class="link-primary fw-semibold">Sign in</a></div>
+    <a href="{{ route('login') }}" class="link-primary fw-semibold">Sign in</a></div>
 </form>
 
-    <div class="card card-primary">
-        <div class="card-header"><h4>Buat Akun</h4></div>
-
-        <div class="card-body">
-            <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate="">
-                @csrf                
-                <div class="form-group">
-                    <label for="name">Nama</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
-                    @error('name')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="username">Nama Pengguna</label>
-                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username">
-                    @error('username')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
-                    @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                
-                <div class="form-group">
-                    <label for="password" class="d-block">Kata Sandi</label>
-                    <input id="password" type="password" class="form-control pwstrength @error('password') is-invalid @enderror" data-indicator="pwindicator" name="password" autocomplete="new-password">
-                    <div id="pwindicator" class="pwindicator">
-                        <div class="bar"></div>
-                        <div class="label"></div>
-                    </div>
-                    @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="password-confirm" class="d-block">Konfirmasi Kata Sandi</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
-                </div>                
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Daftar</button>
-                </div>
-            </form>
-        </div>
-    </div>
 @endsection
 
 @section('script')
     <script src="{{ asset('theme/js/custom/authentication/sign-up/general.js') }}"></script>
+    @error('username')
+        <script>
+            Error();
+        </script>
+    @enderror
+    @error('email')
+        <script>
+            Error();
+        </script>
+    @enderror
 @endsection

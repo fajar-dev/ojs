@@ -14,8 +14,8 @@ var KTSignupGeneral = (function () {
                 (r = KTPasswordMeter.getInstance(e.querySelector('[data-kt-password-meter="true"]'))),
                 (a = FormValidation.formValidation(e, {
                     fields: {
-                        "first-name": { validators: { notEmpty: { message: "First Name is required" } } },
-                        "last-name": { validators: { notEmpty: { message: "Last Name is required" } } },
+                        "name": { validators: { notEmpty: { message: "Name is required" } } },
+                        "username": { validators: { regexp: { regexp: /^[a-z0-9_-]{3,20}$/, message: "Username is not a valid" }, notEmpty: { message: "Username is required" } } },
                         email: { validators: { regexp: { regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "The value is not a valid email address" }, notEmpty: { message: "Email address is required" } } },
                         password: {
                             validators: {
@@ -51,17 +51,7 @@ var KTSignupGeneral = (function () {
                                 ? (t.setAttribute("data-kt-indicator", "on"),
                                   (t.disabled = !0),
                                   setTimeout(function () {
-                                      t.removeAttribute("data-kt-indicator"),
-                                          (t.disabled = !1),
-                                          Swal.fire({ text: "You have successfully reset your password!", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } }).then(
-                                              function (t) {
-                                                  if (t.isConfirmed) {
-                                                      e.reset(), r.reset();
-                                                      var a = e.getAttribute("data-kt-redirect-url");
-                                                      a && (location.href = a);
-                                                  }
-                                              }
-                                          );
+                                    document.getElementById("kt_sign_up_form").submit();
                                   }, 1500))
                                 : Swal.fire({
                                       text: "Sorry, looks like there are some errors detected, please try again.",
@@ -78,6 +68,29 @@ var KTSignupGeneral = (function () {
         },
     };
 })();
+
+function Error() {
+    Swal.fire({
+        text: "Sorry, looks like there are some errors detected, please try again.",
+        icon: "error",
+        buttonsStyling: !1,
+        confirmButtonText: "Ok, got it!",
+        customClass: { confirmButton: "btn btn-primary" },
+    });
+}
+
+
+function username_validasi() {
+    const element = document.getElementById("validate-uname");
+    element.remove();
+  }
+
+  function email_validasi() {
+    const element = document.getElementById("validate-email");
+    element.remove();
+  }
+
+
 KTUtil.onDOMContentLoaded(function () {
     KTSignupGeneral.init();
 });
